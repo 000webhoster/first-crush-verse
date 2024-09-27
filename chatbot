@@ -1,0 +1,20 @@
+from flask import Flask, request, jsonify
+
+app = Flask(ANKIT)
+
+# Simple responses for the chatbot
+responses = {
+    "hello": "Hello! How can I help you?",
+    "how are you?": "I'm just a bot, but I'm doing great! How about you?",
+    "bye": "Goodbye! Have a great day!",
+}
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json.get('message')
+    # Get a response or a default message
+    bot_response = responses.get(user_message.lower(), "I didn't understand that.")
+    return jsonify({'response': bot_response})
+
+if __name__ == '__main__':
+    app.run(debug=True)
